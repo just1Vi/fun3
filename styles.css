@@ -1,0 +1,112 @@
+:root{
+  --bg: #f7f5fb;
+  --text: #2b2b2b;
+  --muted: #6a6a6a;
+  --accent-pink: #ff2a8a;
+  --accent-purple: #6c2bd9;
+  --accent-gold: #f5b400;
+  --card: #ffffff;
+  --border: #ece7f7;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  background: var(--bg);
+  color: var(--text);
+}
+.container{width:min(1200px, 92vw);margin-inline:auto}
+
+/* Header */
+.site-header{background:linear-gradient(90deg,var(--accent-pink),var(--accent-purple));color:#fff}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.logo{font-family:'Playfair Display', serif;font-weight:700;font-size:32px;letter-spacing:.5px}
+.tagline{font-size:13px;opacity:.9}
+.cta{background: #fff;color: var(--accent-purple);padding:10px 14px;border-radius:999px;text-decoration:none;font-weight:600;box-shadow:0 6px 14px rgba(0,0,0,.12)}
+.cta:hover{transform:translateY(-1px)}
+
+/* Categories */
+.categories{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:14px 0}
+.category-chip{border:none;background:#fff;border:1px solid var(--border);padding:10px 14px;border-radius:999px;color:var(--text);cursor:pointer;font-weight:600}
+.category-chip.active{background:linear-gradient(90deg,var(--accent-pink),var(--accent-purple));color:#fff;border-color:transparent}
+.category-chip:focus{outline:2px solid var(--accent-gold)}
+
+/* Page Layout */
+.page{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
+.sidebar{position:sticky;top:16px}
+
+/* Feed Grid */
+.feed{display:grid;gap:18px;grid-template-columns:repeat(12, 1fr)}
+
+/* Card */
+.card{grid-column:span 4;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 6px 16px rgba(108,43,217,.08)}
+.card.featured{grid-column:span 12;display:grid;grid-template-columns:1fr 1fr}
+.card:hover{transform:translateY(-2px);transition:transform .2s ease}
+.card-image{position:relative;height:190px;background:#f0e9ff}
+.card.featured .card-image{height:100%}
+.card-image img{width:100%;height:100%;object-fit:cover;display:block}
+.card-body{padding:14px 16px}
+.card-category{font-size:12px;font-weight:700;text-transform:uppercase;color:var(--accent-purple);letter-spacing:.6px}
+.card-title{font-size:20px;font-weight:700;margin:6px 0}
+.card-subtitle{font-size:14px;color:var(--muted);margin-bottom:10px}
+.card-meta{font-size:12px;color:var(--muted)}
+
+/* Image placeholder when img missing */
+.image-placeholder{background:repeating-linear-gradient(135deg, #eee, #eee 12px, #f8f4ff 12px, #f8f4ff 24px);display:flex;align-items:center;justify-content:center;color:#a48adf}
+.image-placeholder::after{content:'Фото скоро будет';font-weight:600}
+.card.featured .image-placeholder{min-height:280px}
+
+/* Inline Ad Card */
+.ad-inline{grid-column:span 12;display:flex;align-items:center;justify-content:center;padding:10px;background:#fff;border:1px dashed var(--border);border-radius:12px}
+.ad-inline a{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none}
+.ad-inline img{height:56px;width:auto}
+.ad-inline.placeholder{height:90px;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#fff,#fff 10px,#f2ebff 10px,#f2ebff 20px)}
+
+/* Sidebar Vertical Ad */
+.ad-vertical{display:block;position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#fff}
+.ad-vertical img{display:block;width:100%;height:auto}
+.ad-vertical.placeholder{height:600px;background:repeating-linear-gradient(90deg,#fff,#fff 14px,#fde6f3 14px,#fde6f3 28px)}
+
+/* Modal Article */
+.modal{position:fixed;inset:0;display:none}
+.modal[aria-hidden="false"]{display:block}
+.modal-backdrop{position:absolute;inset:0;background:rgba(22,8,46,.5);backdrop-filter:blur(2px)}
+.modal-dialog{position:relative;z-index:1;width:min(980px, 92vw);margin:6vh auto;background:#fff;border-radius:16px;overflow:auto;max-height:88vh;box-shadow:0 30px 60px rgba(0,0,0,.3)}
+.modal-close{position:absolute;top:8px;right:10px;border:none;background:#fff;border-radius:999px;font-size:22px;width:36px;height:36px;cursor:pointer}
+.article{padding:18px}
+.article h1{font-family:'Playfair Display', serif;font-weight:700;font-size:30px;margin:6px 0}
+.article .meta{color:var(--muted);font-size:13px;margin-bottom:12px}
+.article .content p{line-height:1.7;margin:10px 0}
+.gallery{display:grid;gap:10px;grid-template-columns:repeat(3,1fr);margin-top:14px}
+.gallery img{width:100%;height:160px;object-fit:cover;border-radius:10px;cursor:zoom-in}
+
+/* Lightbox */
+.lightbox{position:fixed;inset:0;display:none}
+.lightbox[aria-hidden="false"]{display:block}
+.lightbox-backdrop{position:absolute;inset:0;background:rgba(12,4,26,.92)}
+.lightbox-image{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:92vw;max-height:80vh;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.lightbox-btn{position:absolute;top:50%;transform:translateY(-50%);border:none;background:rgba(255,255,255,.2);color:#fff;font-size:42px;border-radius:12px;padding:6px 10px;cursor:pointer}
+.lightbox-btn:hover{background:rgba(255,255,255,.35)}
+.lightbox-btn.prev{left:18px}
+.lightbox-btn.next{right:18px}
+.lightbox-close{position:absolute;top:14px;right:16px;border:none;background:rgba(255,255,255,.25);color:#fff;font-size:24px;border-radius:10px;padding:6px 10px;cursor:pointer}
+
+/* Footer */
+.site-footer{padding:28px 0;color:#6b5e84}
+
+/* Responsive */
+@media (max-width: 1200px){
+  .container{width:min(1040px, 94vw)}
+}
+@media (max-width: 1024px){
+  .page{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .card{grid-column:span 6}
+  .card.featured{grid-template-columns:1fr;grid-column:span 12}
+}
+@media (max-width: 720px){
+  .categories{overflow-x:auto;padding-bottom:8px}
+  .card{grid-column:span 12}
+  .card-image{height:210px}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+}
