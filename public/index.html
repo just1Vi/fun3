@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PopScope — Знаменитости и поп‑культура</title>
+  <meta name="description" content="Глянцевые новости о знаменитостях: кино, музыка, мода, скандалы. Быстро, ярко, без лишнего." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo">PopScope</div>
+        <div class="tagline">Ваш глянцевый радар поп‑культуры</div>
+      </div>
+      <a class="cta" href="https://alfabank.ru/?utm_source=popscope&utm_medium=banner&utm_campaign=ref" target="_blank" rel="noopener">Альфа-Банк</a>
+    </div>
+  </header>
+
+  <nav class="categories container" aria-label="Фильтр по категориям">
+    <button class="category-chip active" data-category="Все">Все</button>
+    <button class="category-chip" data-category="Кино">Кино</button>
+    <button class="category-chip" data-category="Музыка">Музыка</button>
+    <button class="category-chip" data-category="Мода">Мода</button>
+    <button class="category-chip" data-category="Скандалы">Скандалы</button>
+    <button class="category-chip" data-category="Прочее">Прочее</button>
+  </nav>
+
+  <div class="page container">
+    <main class="feed" id="feed" aria-live="polite"></main>
+
+    <aside class="sidebar">
+      <a class="ad-vertical" href="https://alfabank.ru/?utm_source=popscope&utm_medium=sidebar&utm_campaign=ref" target="_blank" rel="noopener" aria-label="Реклама Альфа-Банк">
+        <img src="images/alpha-vert.png" alt="Альфа-Банк — вертикальный баннер" onerror="this.closest('.ad-vertical').classList.add('placeholder'); this.remove();" />
+      </a>
+    </aside>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      © <span id="year"></span> PopScope. Все права защищены.
+    </div>
+  </footer>
+
+  <!-- Article Modal -->
+  <div class="modal" id="articleModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-dialog" role="document">
+      <button class="modal-close" data-close aria-label="Закрыть">×</button>
+      <article class="article" id="article"></article>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-backdrop" data-close></div>
+    <button class="lightbox-btn prev" id="lightPrev" aria-label="Предыдущее">‹</button>
+    <img class="lightbox-image" id="lightImage" alt="Просмотр фото" />
+    <button class="lightbox-btn next" id="lightNext" aria-label="Следующее">›</button>
+    <button class="lightbox-close" data-close aria-label="Закрыть">×</button>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
