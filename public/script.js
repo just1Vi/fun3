@@ -31,7 +31,7 @@ function createCard(item, isFeatured=false){
   imageWrap.className = 'card-image';
   if (Array.isArray(item.images) && item.images.length){
     const img = document.createElement('img');
-    img.src = `/images/${item.images[0]}`;
+    img.src = `images/${item.images[0]}`;
     img.alt = item.title;
     img.onerror = () => { imageWrap.classList.add('image-placeholder'); img.remove(); };
     imageWrap.appendChild(img);
@@ -61,7 +61,7 @@ function createInlineAd(){
   link.target = '_blank';
   link.rel = 'noopener';
   const img = document.createElement('img');
-  img.src = '/images/alpha-inline.png';
+  img.src = 'images/alpha-inline.png';
   img.alt = 'Реклама Альфа-Банк';
   img.onerror = () => { ad.classList.add('placeholder'); img.remove(); };
   const span = document.createElement('span');
@@ -77,21 +77,36 @@ function renderFeed(){
   let items = allNews;
   if (activeCategory !== 'Все') items = items.filter(n => n.category === activeCategory);
   visibleNews = items;
-  // Place featured as the very first (if exists)
   const first = items[0];
   if (first) FEED.appendChild(createCard(first, true));
 
   const ad = createInlineAd();
   items.slice(1).forEach((item, index) => {
-    if (index === 3) FEED.appendChild(ad); // after the 4th card in feed
+    if (index === 3) FEED.appendChild(ad);
     FEED.appendChild(createCard(item));
   });
 }
 
 async function loadNews(){
-  const res = await fetch('/api/news');
-  const data = await res.json();
-  allNews = Array.isArray(data.items) ? data.items : [];
+  // Try server API first (local dev), then static index.json (GitHub Pages)
+  const tryFetch = async (url) => {
+    try {
+      const res = await fetch(url, { cache: 'no-store' });
+      if (res.ok) return await res.json();
+    } catch (_) {}
+    return null;
+  };
+
+  let data = await tryFetch('api/news');
+  if (!data) data = await tryFetch('news/index.json');
+
+  if (Array.isArray(data)) {
+    allNews = data;
+  } else if (data && Array.isArray(data.items)) {
+    allNews = data.items;
+  } else {
+    allNews = [];
+  }
   renderFeed();
 }
 
@@ -130,7 +145,7 @@ function openArticle(item){
   if (currentGallery.length){
     currentGallery.forEach((imgName, idx) => {
       const img = document.createElement('img');
-      img.src = `/images/${imgName}`;
+      img.src = `images/${imgName}`;
       img.alt = `${item.title} — фото ${idx+1}`;
       img.onerror = () => { img.replaceWith(document.createElement('div')); };
       img.addEventListener('click', () => openLightbox(idx));
@@ -158,7 +173,7 @@ function closeLightbox(){
   LIGHTBOX.setAttribute('aria-hidden', 'true');
 }
 function updateLightbox(){
-  const src = currentGallery[currentIndex] ? `/images/${currentGallery[currentIndex]}` : '';
+  const src = currentGallery[currentIndex] ? `images/${currentGallery[currentIndex]}` : '';
   LIGHT_IMAGE.src = src;
 }
 
@@ -187,7 +202,6 @@ document.querySelectorAll('[data-close]').forEach(el => {
   });
 });
 
-// Category filter handlers
 Array.from(document.querySelectorAll('.category-chip')).forEach(btn => {
   btn.addEventListener('click', () => setActiveCategory(btn.dataset.category));
 });
